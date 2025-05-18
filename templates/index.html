@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Guess the number Game</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Guess a number between 1 and 100</h1>
+
+  <form method="POST">
+    <label>Level:</label>
+    <select name="dificuldade">
+      <option value="easy" {% if dificuldade == 'easy' %}selected{% endif %}>Easy</option>
+      <option value="hard" {% if dificuldade == 'hard' %}selected{% endif %}>Hard</option>
+    </select>
+
+    <input type="hidden" name="secreto" value="{{ secreto }}">
+    <input type="hidden" name="tentativas" value="{{ tentativas }}">
+
+    <p><input type="number" name="palpite" required placeholder="Your Guess"></p>
+    <p><button type="submit">Enviar</button></p>
+  </form>
+
+  <p>{{ mensagem }}</p>
+    {% if "win" in mensagem or "Game Over" in mensagem %}
+    <form method="GET">
+      <button type="submit">Play again</button>
+    </form>
+    {% endif %}
+
+</body>
+</html>
